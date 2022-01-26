@@ -39,7 +39,7 @@ module IcalFilterProxy
     end
 
     def raw_original_ical
-      open(ical_url).read
+      open(ical_url).read.gsub(/\r?\n[ \t]/, "").force_encoding(Encoding::UTF_8)
     end
   end
 end
