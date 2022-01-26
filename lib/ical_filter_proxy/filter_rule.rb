@@ -6,7 +6,7 @@ module IcalFilterProxy
 
     def initialize(field, operator, values)
       self.field = field
-      operator =~ /^(not-)?(\w+)/
+      operator =~ /^(not-)?(\w+)/u
       self.negation = !$1.nil?
       self.operator = $2
       self.values = values
@@ -30,8 +30,8 @@ module IcalFilterProxy
           event_data.start_with?(value)
         when 'contains'
           event_data.include?(value)
-        when '!contains'
-          !event_data.include?(value)
+        when 'ncontains'
+          !(event_data.include?(value))
         else
           false
         end
